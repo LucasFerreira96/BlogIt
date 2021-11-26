@@ -7,6 +7,10 @@ const connection = require("./database/database");
 const CategoriesController = require("./categories/CategoriesController");
 const ArticlesController = require("./articles/ArticlesController");
 
+//Importing Models
+const Article = require("./articles/Article");
+const Category = require("./categories/Category");
+
 //View Engine
 app.set("view engine", "ejs");
 
@@ -18,7 +22,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //Database
-
 connection
     .authenticate()
     .then(() => {
@@ -27,8 +30,10 @@ connection
         console.log(error);
     });
 
+//Using controllers
 app.use("/", CategoriesController);
 app.use("/", ArticlesController);
+
 
 app.get("/", (req, res) => {
 
