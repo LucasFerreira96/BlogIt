@@ -2,10 +2,15 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const connection = require("./database/database");
+
+//Importing Controllers
+const CategoriesController = require("./categories/CategoriesController");
+const ArticlesController = require("./articles/ArticlesController");
+
 //View Engine
 app.set("view engine", "ejs");
 
-//Statis
+//Static
 app.use(express.static('public'));
 
 //Body Parser
@@ -17,11 +22,13 @@ app.use(bodyParser.json());
 connection
     .authenticate()
     .then(() => {
-        console.log("Conexão com banco de dados relizada com sucesso ;)");
+        console.log("Database connection OK");
     }).catch((error) => {
         console.log(error);
     });
 
+app.use("/", CategoriesController);
+app.use("/", ArticlesController);
 
 app.get("/", (req, res) => {
 
@@ -29,5 +36,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(8080, () => {
-    console.log("O servidor está rodando ;)")
+    console.log("Server OK")
 })
