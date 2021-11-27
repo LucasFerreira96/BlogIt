@@ -15,7 +15,7 @@ const Category = require("./categories/Category");
 app.set("view engine", "ejs");
 
 //Static
-app.use(express.static('public'));
+app.use(express.static("public"));
 
 //Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));
