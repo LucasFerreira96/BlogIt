@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Users = require("./Users");
 const bcrypt = require("bcryptjs");
+const adminAuth = require("../middlewares/adminAuth");
 
 router.get("/admin/users", (req, res) => {
 
@@ -76,5 +77,10 @@ router.post("/authenticate", (req, res) => {
         }
     })
 });
+
+router.get("/logout", adminAuth, (req,res) =>{
+    req.session.user = undefined;
+    res.redirect("/");
+})
 
 module.exports = router;
